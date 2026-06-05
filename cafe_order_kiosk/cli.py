@@ -5,8 +5,7 @@ from dataclasses import dataclass
 
 from cafe_order_kiosk.models import OrderStatus
 from cafe_order_kiosk.kiosk_store import KioskStore
-from cafe_order_kiosk.utils import format_money
-
+from cafe_order_kiosk.receipt import print_receipt    #receipt 호출하기
 
 @dataclass
 class CLIState:
@@ -210,7 +209,8 @@ def handle_pay(store: KioskStore, state: CLIState, args: list[str]) -> None:
 
     print(f"주문 #{order.id} 결제 완료 ({method}).")
 
-
+    print_receipt(order) #결제되면 영수증 정상출력
+ 
 def print_order(order) -> None:
     print(f"주문 #{order.id} ({format_status(order.status)})")
     if order.note:
